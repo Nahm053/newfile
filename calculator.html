@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calculator</title>
+
+    <style>
+        table {
+            border: 1px solid black;
+            background-color: rgb(83, 83, 83);
+            border-radius: 20px;
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+
+        input[type='button'] {
+            width: 100%;
+            padding: 20px 40px;
+            background-color: wheat;
+            color: black;
+            font-size: 24px;
+            font-weight: bold;
+            border: 5px solid rgb(83, 83, 83);
+            border-radius: 10px;
+        }
+
+        input[value='AC'] {
+            width: 100%;
+            padding: 20px 40px;
+            background-color: darkorange;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            border: 5px solid rgb(83, 83, 83);
+            border-radius: 10px;
+        }
+
+        input[value='='] {
+            padding: 60px 40px;
+            background-color: darkorange;
+            color: white;
+            font-size: 24px;
+            border-radius: 10px;
+            border: 5px solid rgb(83, 83, 83);
+        }
+
+        button[id="clrhistory"] {
+            width: 20%;
+            padding: 20px 10px;
+            background-color: rgb(230, 61, 61);
+            color: white;
+            font-size: 24px;
+            /* font-weight: bold; */
+            border: 1px;
+            border-radius: 5px;
+        }
+
+        input[type="text"] {
+            padding: 20px 50px;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 10px;
+            border: 5px solid rgb(83, 83, 83);
+            margin-block: 5px;
+        }
+
+        textarea[id='history'] {
+            resize: none;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <textarea id="history" rows="5" cols="30">HISTORY&#10</textarea><br>
+
+    <button id="clrhistory" onclick="clrhistory()">Clear history</button><br><br>
+
+    <table id="calcu">
+        <tr>
+            <td colspan="4"><input type="text" id="result"></td>
+
+        </tr>
+        <tr>
+            <td colspan="2"><input type="button" value="AC" onclick="clr()" /> </td>
+            <td><input type="button" value="/" onclick="oper('/')"> </td>
+            <td><input type="button" value="x" onclick="oper('*')"> </td>
+
+        </tr>
+        <tr>
+            <td><input type="button" value="7" onclick="num('7')"> </td>
+            <td><input type="button" value="8" onclick="num('8')"> </td>
+            <td><input type="button" value="9" onclick="num('9')"> </td>
+            <td><input type="button" value="-" onclick="oper('-')"> </td>
+        </tr>
+        <tr>
+            <td><input type="button" value="4" onclick="num('4')"> </td>
+            <td><input type="button" value="5" onclick="num('5')"> </td>
+            <td><input type="button" value="6" onclick="num('6')"> </td>
+            <td><input type="button" value="+" onclick="oper('+')"> </td>
+        </tr>
+        <tr>
+            <td><input type="button" value="1" onclick="num('1')"> </td>
+            <td><input type="button" value="2" onclick="num('2')"> </td>
+            <td><input type="button" value="3" onclick="num('3')"> </td>
+            <td rowspan="2"><input type="button" value="=" onclick="solve()"> </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="button" value="0" onclick="num('0')"> </td>
+            <td><input type="button" value="." onclick="num('.')"> </td>
+
+
+        </tr>
+    </table>
+
+    <script>
+        let equation = '';
+        let result = '';
+        
+        function num(val) {
+            if (document.getElementById("result").value === result) {
+                document.getElementById("result").value = '';
+            }
+            document.getElementById("result").value += val;
+            equation += val;
+        }
+
+        function oper(vall) {
+            equation += vall;
+            document.getElementById("result").value = '';
+        }
+
+        function solve() {
+            document.getElementById("result").value = '';
+            result = eval(equation);
+            let y = equation + "=" + result + '\n';
+            document.getElementById("result").value = result;
+            document.getElementById("history").value += y;
+            equation = '';
+        }
+
+        function clr() {
+            document.getElementById("result").value = '';
+            equation = '';
+        }
+
+        function clrhistory() {
+            document.getElementById("history").value = 'HISTORY' + '\n';
+        }
+
+    </script>
+</body>
+
+</html>
